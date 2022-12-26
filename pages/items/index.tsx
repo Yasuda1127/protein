@@ -29,6 +29,33 @@ const ItemDisplay: NextPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showchatbot, setShowChatbot] = useState(false);
 
+  useEffect(() => {
+    const handler = async () => {
+      // event.preventDefault();
+      fetch(`/api/items`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(resource),
+      })
+        // .then((response) => {
+        //   response.json();
+        //   if (response.status !== 200) {
+        //   } else if (response.status === 200) {
+        //   }
+        // })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+
+    handler();
+  }, [resource])
+
   //検索、絞り込み、商品詳細のクリック以外の何もしない時間が5秒あればチャットボット出現させる
   useEffect(() => {
     const timeout = setTimeout(() => {
