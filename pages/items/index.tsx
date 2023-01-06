@@ -2,7 +2,7 @@
 // 表示の方でswrを書いて、PULLDOWNするとURLが変化するようにする。
 
 import Link from 'next/link';
-import { NextPage } from 'next';
+import { NextPage,GetServerSideProps } from 'next';
 import styles from '../../styles/items_index.module.css';
 import ItemDisplayNew from '../../components/itemDisplayNew';
 import Head from 'next/head';
