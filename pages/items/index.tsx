@@ -64,8 +64,8 @@ const ItemDisplay: NextPage = () => {
         );
     }
   }, [flavor, category]);
-console.log(resource)
-  const { data, error } = useSWR(resource, fetcher);
+
+  const { data, error } = useSWR(`/api/supabase`, fetcher);
   if (error) return <div>Failed to Load</div>;
   if (!data) return <div>Loading...</div>;
 
