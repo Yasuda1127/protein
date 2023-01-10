@@ -2,7 +2,7 @@
 // 表示の方でswrを書いて、PULLDOWNするとURLが変化するようにする。
 
 import Link from 'next/link';
-import { NextPage,GetServerSideProps } from 'next';
+import { NextPage } from 'next';
 import styles from '../../styles/items_index.module.css';
 import ItemDisplayNew from '../../components/itemDisplayNew';
 import Head from 'next/head';
@@ -18,10 +18,44 @@ import TooltipButton from '../../components/tooltipButton';
 import Footer from '../layout/footer';
 import { supabase } from "../../utils/supabase";
 import React from 'react';
+import router from "next";
+import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const category = context.query.category;
+  const flavor = context.query.flavor;
+
+  // const flavor2 = a
+  // console.log(flavor2) 
+  console.log(flavor);
+
+  let query = supabase.from('items').select();
+  if (flavor) {
+    query = query.like('flavor', `%${flavor}%`);
+  }
+  if (category) {
+    query = query.eq('category', category);
+  }
+  const data2 = await query;
+  const data3 = data2.data!;
+  // console.log(data2)
+
+
+  return {
+    props: {
+       data3:data3
+    },
+  };
+};
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-const ItemDisplay: NextPage = () => {
+ type Props = {
+  data3: [];
+  };
+const ItemDisplay: NextPage<Props> = (data3) => {
+    const router = useRouter();
   // async function data2(){
   //     let a =await supabase.from("items").select("*")
   //     console.log(a.data!)
@@ -49,21 +83,30 @@ const ItemDisplay: NextPage = () => {
   const inputref = useRef<HTMLInputElement>();
 
   //ポストする
-  useEffect(() => {
-    if (category) {
-      setResource(
-        `${process.env.NEXT_PUBLIC_PROTEIN}/api/items?flavor_like=${flavor}&category=${category}`
-      );
-    } else if (flavor) {
-      setResource(
-        `${process.env.NEXT_PUBLIC_PROTEIN}/api/items?flavor_like=${flavor}`
-      );
-    } else {
-      setResource(
-        `${process.env.NEXT_PUBLIC_PROTEIN}/api/items`
-        );
-    }
-  }, [flavor, category]);
+  // useEffect(() => {
+  //   if (category) {
+  //     setResource(
+  //      `${process.env.NEXT_PUBLIC_PROTEIN}/api/items?flavor_like=${flavor}&category=${category}`
+  //     );
+  //   } else if (flavor) {
+  //     setResource(
+  //       `${process.env.NEXT_PUBLIC_PROTEIN}/api/items?flavor_like=${flavor}`
+  //     );
+  //   } else {
+  //     setResource(
+  //       `${process.env.NEXT_PUBLIC_PROTEIN}/api/items`
+  //       );
+  //   }
+  // }, [flavor, category]);
+
+  // useEffect(() => {
+  //   if (category) {
+  //     console.log(category)
+  //     async () => {
+  //       let { data }: any = await supabase.from('items').select("*").eq("category", category)
+  //       console.log(data)
+  //     }
+  //  }})
 
   const { data, error } = useSWR(`/api/supabase`, fetcher);
   if (error) return <div>Failed to Load</div>;
@@ -72,14 +115,22 @@ const ItemDisplay: NextPage = () => {
   // 種類検索イベント
   const categoryHandler = (e: ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
+    router.push({
+      pathname: '/items',
+      query: { category: e.target.value,flavor: flavor },
+    });
   };
 
   // フレーバー検索イベント
   const flavorHandler = (e: ChangeEvent<HTMLSelectElement>) => {
     setFlavor(e.target.value);
+    router.push({
+      pathname: '/items',
+      query: { category: category,flavor: e.target.value },
+    });
   };
 
-  const searchData = data.filter((item: Item) => {
+  const searchData = data3.data3.filter((item: Item) => {
     return (
       searchQuery.length === 0 || item.name.match(searchQuery)
       // 検索BOXに値がない場合のmap、searchQueryに入っている値とdb.jsonのnameと合致する商品のみ表示するmap
@@ -88,7 +139,7 @@ const ItemDisplay: NextPage = () => {
   const totalCount = searchData.length;
   const pageSize = 12;
   let startIndex = (count - 1) * pageSize;
-  let value = '';
+  let value:any = '';
   if (flavor || (category && count >= 2)) {
     value = searchData.slice(0, pageSize);
   } else {
