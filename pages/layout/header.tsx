@@ -2,6 +2,7 @@ import Link from 'next/link';
 import style from './header.module.css';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import React from 'react';
 
 const logOut = () => {
   if (document.cookie !== '') {
@@ -21,7 +22,7 @@ export default function Header() {
   };
 
   const moveToFavorite = () => {
-    if (document.cookie !== '__stripe_mid=c5baaf84-42ed-4f14-ae43-5e4ea7dac15e51362b') {
+    if (document.cookie !== '') {
       router.push('/users/favorite');
     } else {
       alert('ログインをしてください');
@@ -30,7 +31,7 @@ export default function Header() {
   };
 
   const moveToUsers = () => {
-    if (document.cookie !== '__stripe_mid=c5baaf84-42ed-4f14-ae43-5e4ea7dac15e51362b') {
+    if (document.cookie !== '') {
       router.push('/users');
     } else {
       alert('ログインをしてください');
