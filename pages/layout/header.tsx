@@ -9,15 +9,16 @@ const logOut = () => {
     var date = new Date('1999-12-31T23:59:59Z');
     document.cookie = `id=;path=/;expires=${date.toUTCString()};`;
     alert('ログアウトしました');
-   } else if('__stripe_sid=c618b71e-eb7a-46d5-9cf3-13bff7196043a017ec') {
-      var date = new Date('1999-12-31T23:59:59Z');
-    document.cookie = `__stripe_sid=c618b71e-eb7a-46d5-9cf3-13bff7196043a017ec=;path=/;expires=${date.toUTCString()};`;
-    alert('ログアウトしました');
-    } else if('__stripe_mid=8d42a2c4-e701-4fb0-9f37-f5882dfcd61905a3a1'){
-      var date = new Date('1999-12-31T23:59:59Z');
-    document.cookie = `__stripe_mid=;path=/;expires=${date.toUTCString()};`;
-    alert('ログアウトしました');
-    }
+  }
+  //  } else if('__stripe_sid=c618b71e-eb7a-46d5-9cf3-13bff7196043a017ec') {
+  //     var date = new Date('1999-12-31T23:59:59Z');
+  //   document.cookie = `__stripe_sid=c618b71e-eb7a-46d5-9cf3-13bff7196043a017ec=;path=/;expires=${date.toUTCString()};`;
+  //   alert('ログアウトしました');
+  //   } else if('__stripe_mid=8d42a2c4-e701-4fb0-9f37-f5882dfcd61905a3a1'){
+  //     var date = new Date('1999-12-31T23:59:59Z');
+  //   document.cookie = `__stripe_mid=;path=/;expires=${date.toUTCString()};`;
+  //   alert('ログアウトしました');
+  //   }
    else {
     alert('ログインをしてください');
   }
@@ -31,7 +32,7 @@ export default function Header() {
   };
 
   const moveToFavorite = () => {
-    if (document.cookie !== '') {
+    if (document.cookie !== '' || '__stripe_mid=8d42a2c4-e701-4fb0-9f37-f5882dfcd61905a3a1' || '__stripe_sid=c618b71e-eb7a-46d5-9cf3-13bff7196043a017ec') {
       router.push('/users/favorite');
     }
     else {
