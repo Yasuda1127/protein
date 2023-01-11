@@ -22,7 +22,7 @@ export default function Header() {
   };
 
   const moveToFavorite = () => {
-    if (document.cookie !== '__stripe_mid=e19bd0b0-62dd-4cb3-94d7-2f7926d3f473298900' && '__stripe_sid=067388b5-f8dc-45b5-ac21-71bc36fe590de3cfd5') {
+    if (document.cookie !== '__stripe_mid=e19bd0b0-62dd-4cb3-94d7-2f7926d3f473298900' || '__stripe_sid=067388b5-f8dc-45b5-ac21-71bc36fe590de3cfd5') {
       router.push('/users/favorite');
     }
     else {
@@ -32,7 +32,7 @@ export default function Header() {
   };
 
   const moveToUsers = () => {
-    if (document.cookie !== '__stripe_mid=e19bd0b0-62dd-4cb3-94d7-2f7926d3f473298900' && '__stripe_sid=067388b5-f8dc-45b5-ac21-71bc36fe590de3cfd5') {
+    if (document.cookie !== '__stripe_mid=e19bd0b0-62dd-4cb3-94d7-2f7926d3f473298900' || '__stripe_sid=067388b5-f8dc-45b5-ac21-71bc36fe590de3cfd5') {
       router.push('/users');
     } else {
       alert('ログインをしてください');
