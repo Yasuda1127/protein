@@ -22,7 +22,7 @@ export default function Header() {
   };
 
   const moveToFavorite = () => {
-    if (document.cookie !== '') {
+    if (document.cookie !== '__stripe_mid=e19bd0b0-62dd-4cb3-94d7-2f7926d3f473298900') {
       router.push('/users/favorite');
     } else {
       alert('ログインをしてください');
@@ -31,7 +31,7 @@ export default function Header() {
   };
 
   const moveToUsers = () => {
-    if (document.cookie !== '') {
+    if (document.cookie !== '__stripe_mid=e19bd0b0-62dd-4cb3-94d7-2f7926d3f473298900') {
       router.push('/users');
     } else {
       alert('ログインをしてください');
