@@ -65,7 +65,7 @@ export default function Header() {
       router.push('/users/favorite');
     }else if(document.cookie.includes('; __stripe_mid=')){
       router.push('/users/favorite');
-    }else if(document.cookie.includes('__stripe_mid=')){
+    }else if(document.cookie.includes('__stripe_sid=')){
       alert('ログインをしてください');
       router.push('/login');
     } else if (document.cookie !== '') {
@@ -93,7 +93,7 @@ export default function Header() {
       router.push('/users');
     }else if(document.cookie.includes('; __stripe_mid=')){
       router.push('/users');
-    } else if(document.cookie.includes('__stripe_mid=')){
+    } else if(document.cookie.includes('__stripe_sid=')){
       alert('ログインをしてください');
       router.push('/login');
     } else if (document.cookie !== '') {
