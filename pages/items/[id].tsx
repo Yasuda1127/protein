@@ -147,8 +147,9 @@ const ItemDetail: NextPage<{ detail: Item }> = ({ detail }) => {
   // cookie取得【始まり】
   useEffect(() => {
     const user = document.cookie;
-    const userId = user.slice(3);
+    const userId = user.slice(-1);
     setUserId(userId);
+    console.log(user)
   }, []);
   // cookie取得【終わり】
 

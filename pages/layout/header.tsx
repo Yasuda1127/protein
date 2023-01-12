@@ -27,7 +27,7 @@ const logOut = () => {
     var date = new Date('1999-12-31T23:59:59Z');
     document.cookie = `id=;path=/;expires=${date.toUTCString()};`;
     alert('ログアウトしました');
-  }else if(document.cookie.includes('__stripe_sid=')){
+  }else if(document.cookie.includes('__stripe_mid=')){
      alert('ログインをしてください');
      router.push('/login');
    }else if (document.cookie !== '') {
@@ -65,7 +65,7 @@ export default function Header() {
       router.push('/users/favorite');
     }else if(document.cookie.includes('; __stripe_mid=')){
       router.push('/users/favorite');
-    }else if(document.cookie.includes('__stripe_sid=')){
+    }else if(document.cookie.includes('__stripe_mid=')){
       alert('ログインをしてください');
       router.push('/login');
     } else if (document.cookie !== '') {
@@ -93,13 +93,16 @@ export default function Header() {
       router.push('/users');
     }else if(document.cookie.includes('; __stripe_mid=')){
       router.push('/users');
-    } else if(document.cookie.includes('__stripe_sid=')){
+    } else if(document.cookie.includes('__stripe_mid=')){
       alert('ログインをしてください');
       router.push('/login');
     } else if (document.cookie !== '') {
       router.push('/users');
+    } else {
+      alert('ログインをしてください');
+      router.push('/login');
     }
-  };
+};
 
   return (
     <div className={style.all}>
