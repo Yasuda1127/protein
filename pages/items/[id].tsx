@@ -181,6 +181,17 @@ const ItemDetail: NextPage<{ detail: Item }> = ({ detail }) => {
         JSON.stringify(cartsForStrage)
       );
       router.push('/cart');
+    }else if(document.cookie.includes(`; id=`)){
+      await supabase.from('carts').insert({
+        userId,
+        itemId,
+        imageUrl,
+        name,
+        flavor,
+        price,
+        countity,
+      });
+      router.push('/cart');
     }else if(document.cookie.includes('; __stripe_mid=')){
       localStorage.setItem(
         carts.itemId as any,
