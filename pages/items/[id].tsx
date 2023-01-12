@@ -175,9 +175,6 @@ const ItemDetail: NextPage<{ detail: Item }> = ({ detail }) => {
   // localstrageへ保存【終わり】
 
   const handler = async () => {
-    // 数量0の場合はカートへ入れない
-    // if (count === 0) {
-    //   return;
     if (!document.cookie) {
       localStorage.setItem(
         carts.itemId as any,
@@ -292,9 +289,19 @@ const ItemDetail: NextPage<{ detail: Item }> = ({ detail }) => {
       itemIdFav,
       id,
     });
-    if (document.cookie !== '') {
+    if (document.cookie == '') {
+      alert('ログインをしてください');
+      router.push('/login');
+    } else if(document.cookie.includes(`; id=`)){
       router.push('/users/favorite');
-    } else {
+    }else if(document.cookie.includes('; __stripe_mid=')){
+      router.push('/users/favorite');
+    }else if(document.cookie.includes('__stripe_mid=')){
+      alert('ログインをしてください');
+      router.push('/login');
+    } else if (document.cookie !== '') {
+      router.push('/users/favorite');
+    }else {
       alert('ログインをしてください');
       router.push('/login');
     }
