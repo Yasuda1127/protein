@@ -1,28 +1,44 @@
 import Link from 'next/link';
 import style from './header.module.css';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 import React from 'react';
 
+// const logOut = () => {
+//   if (document.cookie !== '') {
+//     var date = new Date('1999-12-31T23:59:59Z');
+//     document.cookie = `id=;path=/;expires=${date.toUTCString()};`;
+//     alert('ログアウトしました');
+//   }
+//    else {
+//     alert('ログインをしてください');
+//   }
+// };
+
 const logOut = () => {
-  if (document.cookie !== '') {
+  if(document.cookie == ''){
+   alert('ログインをしてください');
+   router.push('/login');
+  }else if(document.cookie.includes(`; id=`)){
+   var date = new Date('1999-12-31T23:59:59Z');
+   document.cookie = `id=;path=/;expires=${date.toUTCString()};`;
+   alert('ログアウトしました');
+ }else if(document.cookie.includes('; __stripe_mid=')){
     var date = new Date('1999-12-31T23:59:59Z');
     document.cookie = `id=;path=/;expires=${date.toUTCString()};`;
     alert('ログアウトしました');
-  }
-  //  } else if('__stripe_sid=c618b71e-eb7a-46d5-9cf3-13bff7196043a017ec') {
-  //     var date = new Date('1999-12-31T23:59:59Z');
-  //   document.cookie = `__stripe_sid=c618b71e-eb7a-46d5-9cf3-13bff7196043a017ec=;path=/;expires=${date.toUTCString()};`;
-  //   alert('ログアウトしました');
-  //   } else if('__stripe_mid=8d42a2c4-e701-4fb0-9f37-f5882dfcd61905a3a1'){
-  //     var date = new Date('1999-12-31T23:59:59Z');
-  //   document.cookie = `__stripe_mid=;path=/;expires=${date.toUTCString()};`;
-  //   alert('ログアウトしました');
-  //   }
-   else {
-    alert('ログインをしてください');
-  }
-};
+  }else if(document.cookie.includes('__stripe_mid=')){
+     alert('ログインをしてください');
+     router.push('/login');
+   }else if (document.cookie !== '') {
+     var date = new Date('1999-12-31T23:59:59Z');
+     document.cookie = `id=;path=/;expires=${date.toUTCString()};`;
+     alert('ログアウトしました');
+   } else {
+     alert('ログインをしてください');
+     router.push('/login');
+   }
+  };
 
 export default function Header() {
   const router = useRouter();
@@ -31,18 +47,56 @@ export default function Header() {
     router.push('/cart');
   };
 
+  // const moveToFavorite = () => {
+  //   if (document.cookie !== '' || '__stripe_mid=8d42a2c4-e701-4fb0-9f37-f5882dfcd61905a3a1' || '__stripe_sid=c618b71e-eb7a-46d5-9cf3-13bff7196043a017ec') {
+  //     router.push('/users/favorite');
+  //   }
+  //   else {
+  //     alert('ログインをしてください');
+  //     router.push('/login');
+  //   }
+  // };
+
   const moveToFavorite = () => {
-    if (document.cookie !== '' || '__stripe_mid=8d42a2c4-e701-4fb0-9f37-f5882dfcd61905a3a1' || '__stripe_sid=c618b71e-eb7a-46d5-9cf3-13bff7196043a017ec') {
+    if (document.cookie == '') {
+      alert('ログインをしてください');
+      router.push('/login');
+    } else if(document.cookie.includes(`; id=`)){
       router.push('/users/favorite');
-    }
-    else {
+    }else if(document.cookie.includes('; __stripe_mid=')){
+      router.push('/users/favorite');
+    }else if(document.cookie.includes('__stripe_mid=')){
+      alert('ログインをしてください');
+      router.push('/login');
+    } else if (document.cookie !== '') {
+      router.push('/users/favorite');
+    }else {
       alert('ログインをしてください');
       router.push('/login');
     }
-  };
+}
+
+  // const moveToUsers = () => {
+  //   if (document.cookie !== '') {
+  //     router.push('/users');
+  //   } else {
+  //     alert('ログインをしてください');
+  //     router.push('/login');
+  //   }
+  // };
 
   const moveToUsers = () => {
-    if (document.cookie !== '') {
+    if (document.cookie == '') {
+      alert('ログインをしてください');
+      router.push('/login');
+    }else if(document.cookie.includes(`; id=`)){
+      router.push('/users');
+    }else if(document.cookie.includes('; __stripe_mid=')){
+      router.push('/users');
+    } else if(document.cookie.includes('__stripe_mid=')){
+      alert('ログインをしてください');
+      router.push('/login');
+    } else if (document.cookie !== '') {
       router.push('/users');
     } else {
       alert('ログインをしてください');
