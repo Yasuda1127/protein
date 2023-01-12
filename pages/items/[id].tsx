@@ -184,8 +184,19 @@ const ItemDetail: NextPage<{ detail: Item }> = ({ detail }) => {
         JSON.stringify(cartsForStrage)
       );
       router.push('/cart');
-    }
-    else {
+    }else if(document.cookie.includes('; __stripe_mid=')){
+      localStorage.setItem(
+        carts.itemId as any,
+        JSON.stringify(cartsForStrage)
+      );
+      router.push('/cart');
+    }else if(document.cookie.includes(' __stripe_mid=')){
+      localStorage.setItem(
+        carts.itemId as any,
+        JSON.stringify(cartsForStrage)
+      );
+      router.push('/cart');
+    }else {
       await supabase.from('carts').insert({
         userId,
         itemId,
