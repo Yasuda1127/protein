@@ -253,7 +253,19 @@ const ItemDetail: NextPage<{ detail: Item }> = ({ detail }) => {
         'ログイン後に商品購入可能です（会員登録してない方は会員登録をお願いします）'
       );
       router.push('/login');
-    } else {
+    } else if (document.cookie == '') {
+      alert('ログインをしてください');
+      router.push('/login');
+    } else if(document.cookie.includes(`; id=`)){
+      router.push('/items/subscription');
+    }else if(document.cookie.includes('; __stripe_mid=')){
+      router.push('/items/subscription');
+    }else if(document.cookie.includes('__stripe_mid=')){
+      alert('ログインをしてください');
+      router.push('/login');
+    } else if (document.cookie !== '') {
+      router.push('/items/subscription');
+    }else {
       await supabase.from('subscriptionCart').insert({
         userId,
         itemId,
