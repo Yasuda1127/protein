@@ -178,7 +178,7 @@ const ItemDetail: NextPage<{ detail: Item }> = ({ detail }) => {
     // 数量0の場合はカートへ入れない
     // if (count === 0) {
     //   return;
-    if (!document.cookie) {
+    if (document.cookie) {
       localStorage.setItem(
         carts.itemId as any,
         JSON.stringify(cartsForStrage)
