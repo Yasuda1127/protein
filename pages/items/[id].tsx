@@ -276,12 +276,7 @@ const ItemDetail: NextPage<{ detail: Item }> = ({ detail }) => {
       router.push('/users/favorite');
     }else if(document.cookie.includes('; __stripe_mid=')){
       router.push('/users/favorite');
-    }else if(document.cookie.includes('; __stripe_sid=')){
-      router.push('/users/favorite');
     }else if(document.cookie.includes('__stripe_mid=')){
-      alert('ログインをしてください');
-      router.push('/login');
-    }else if(document.cookie.includes('; __stripe_sid=')){
       alert('ログインをしてください');
       router.push('/login');
     } else if (document.cookie !== '') {
