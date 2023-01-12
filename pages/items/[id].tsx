@@ -190,7 +190,7 @@ const ItemDetail: NextPage<{ detail: Item }> = ({ detail }) => {
         JSON.stringify(cartsForStrage)
       );
       router.push('/cart');
-    }else if(document.cookie.includes(' __stripe_mid=')){
+    }else if(document.cookie.includes('__stripe_mid=')){
       localStorage.setItem(
         carts.itemId as any,
         JSON.stringify(cartsForStrage)
