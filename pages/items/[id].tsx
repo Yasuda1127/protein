@@ -155,7 +155,7 @@ const ItemDetail: NextPage<{ detail: Item }> = ({ detail }) => {
     const user = document.cookie;
     let userId = '';
     if(document.cookie.includes('; __stripe_mid=')){
-      userId = user.slice(3,4);
+      userId = user.slice(3);
     }else{
       userId = user.slice(-1);
    }
