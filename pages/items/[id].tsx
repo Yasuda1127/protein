@@ -272,10 +272,20 @@ const ItemDetail: NextPage<{ detail: Item }> = ({ detail }) => {
     });
     if (document.cookie !== '') {
       router.push('/users/favorite');
+    } else if(document.cookie.includes(`; id=`)){
+      router.push('/users/favorite');
+    }else if(document.cookie.includes('; __stripe_mid=')){
+      router.push('/users/favorite');
+    }else if(document.cookie.includes('__stripe_mid=')){
+      alert('ログインをしてください');
+      router.push('/login');
+    } else if (document.cookie !== '') {
+      router.push('/users/favorite')
     } else {
       alert('ログインをしてください');
       router.push('/login');
     }
+  };
     //
     // fetch(`${process.env.NEXT_PUBLIC_PROTEIN_DATA}/favorites`, {
     //   method: 'POST',
@@ -284,7 +294,6 @@ const ItemDetail: NextPage<{ detail: Item }> = ({ detail }) => {
     //   },
     //   body: JSON.stringify(favs),
     // });
-  };
 
   return (
     <>
